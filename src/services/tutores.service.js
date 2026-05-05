@@ -9,7 +9,6 @@ const buscarPorId = async (id) => {
     return result.rows[0];
 };
 
-
 const create = async (tutor) => {
     const { nome, telefone, email } = tutor;
     const result = await pool.query(
@@ -19,7 +18,6 @@ const create = async (tutor) => {
     return result.rows[0];
 };
 
-
 const update = async (id, tutor) => {
     const { nome, telefone, email } = tutor;
     const result = await pool.query(
@@ -28,7 +26,6 @@ const update = async (id, tutor) => {
     );
     return result.rows[0];
 };
-
 
 const remove = async (id) => {
     await pool.query('DELETE FROM tutores WHERE id = $1', [id]);
