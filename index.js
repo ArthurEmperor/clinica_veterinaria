@@ -17,7 +17,17 @@ app.use((req, res) => {
 });
 
 const PORT = 3000;
-app.listen(PORT, () => {
+const server = app.listen(PORT, '127.0.0.1', () => {
     console.log(`Servidor rodando na porta ${PORT}`);
     console.log(`Banco: ${process.env.DB_NAME} em ${process.env.DB_HOST}:${process.env.DB_PORT}`);
+    console.log('Use Ctrl+C para encerrar o servidor.');
+});
+
+server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+        console.error(`Erro: a porta ${PORT} já está em uso. Feche o servidor existente ou use outra porta.`);
+    } else {
+        console.error('Erro no servidor:', err);
+    }
+    process.exit(1);
 });

@@ -45,7 +45,14 @@ const buscarPorAnimalId = async (animalId) => {
 };
 
 const findBytutoresId = async (tutorId) => {
-  const result = await pool.query('SELECT * FROM consultas WHERE tutor_id = $1 ORDER BY id', [tutorId]);
+  const result = await pool.query(
+    `SELECT c.* 
+     FROM consultas c
+     JOIN animais a ON c.animal_id = a.id
+     WHERE a.tutor_id = $1
+     ORDER BY c.id`,
+    [tutorId]
+  );
   return result.rows;
 };
 

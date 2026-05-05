@@ -27,11 +27,11 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
   try {
-    const { nome, especie, raca, idade, tutor_id } = req.body;
+    const { nome, especie, raca, data_nascimento, tutor_id } = req.body;
     if (!nome) {
       return res.status(400).json({ erro: 'Nome do animal é obrigatório' });
     }
-    const novoAnimal = await animalService.create({ nome, especie, raca, idade, tutor_id });
+    const novoAnimal = await animalService.create({ nome, especie, raca, data_nascimento, tutor_id });
     return res.status(201).json(novoAnimal);
   } catch (error) {
     console.error(error);
@@ -42,11 +42,11 @@ const create = async (req, res) => {
 const update = async (req, res) => {
   try {
     const { id } = req.params;
-    const { nome, especie, raca, idade, tutor_id } = req.body;
+    const { nome, especie, raca, data_nascimento, tutor_id } = req.body;
     if (!nome) {
       return res.status(400).json({ erro: 'Nome do animal é obrigatório' });
     }
-    const animalAtualizado = await animalService.update(id, { nome, especie, raca, idade, tutor_id });
+    const animalAtualizado = await animalService.update(id, { nome, especie, raca, data_nascimento, tutor_id });
     if (!animalAtualizado) {
       return res.status(404).json({ erro: 'Animal não encontrado' });
     }
