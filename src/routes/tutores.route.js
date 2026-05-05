@@ -7,7 +7,7 @@ router.use(autenticar);
 
 router.get('/', tutorController.getAll);
 router.get('/:id', tutorController.getById);
-router.get('/:id/pedidos', tutorController.getPedidosByTutor);
+router.get('/:id/pedidos', tutorController.getPedidosBytutores);
 router.post('/', tutorController.create);
 router.put('/:id', tutorController.update);
 router.delete('/:id', tutorController.remove);

@@ -5,7 +5,7 @@ const autenticar = (req, res, next) => {
 
     if (!authHeader) {
         return res.status(401).json({ 
-            erro: 'Acesso negado: Usuario não identificado!' 
+            erro: 'Acesso negado: usuário não identificado' 
         })
     }
 

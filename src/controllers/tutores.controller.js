@@ -1,9 +1,9 @@
-const tutoresService = require('../services/tutores.service');
+const tutorService = require('../services/tutores.service');
 const consultasService = require('../services/consultas.service');   
 
 const getAll = async (req, res) => {
     try {
-        const tutoress = await tutoresService.findAll();
+        const tutoress = await tutorService.buscarTodos();
         res.status(200).json(tutoress);
     } catch (error) {
         console.error('ERRO DETALHADO NO CONTROLLER:', error);
@@ -15,7 +15,7 @@ const getAll = async (req, res) => {
 const getById = async (req, res) => {
     try {
         const { id } = req.params;
-        const tutores = await tutoresService.findById(id);
+        const tutores = await tutorService.buscarPorId(id);
         if (!tutores) {
             return res.status(404).json({ erro: 'tutores não encontrado' });
         }
@@ -32,7 +32,7 @@ const create = async (req, res) => {
         if (!nome) {
             return res.status(400).json({ erro: 'Nome é obrigatório' });
         }
-        const novotutores = await tutoresService.create({ nome, telefone, email });
+        const novotutores = await tutorService.create({ nome, telefone, email });
         res.status(201).json(novotutores);
     } catch (error) {
         console.error(error);
@@ -47,7 +47,7 @@ const update = async (req, res) => {
         if (!nome) {
             return res.status(400).json({ erro: 'Nome é obrigatório' });
         }
-        const tutoresAtualizado = await tutoresService.update(id, { nome, telefone, email });
+        const tutoresAtualizado = await tutorService.update(id, { nome, telefone, email });
         if (!tutoresAtualizado) {
             return res.status(404).json({ erro: 'tutores não encontrado' });
         }
@@ -61,11 +61,11 @@ const update = async (req, res) => {
 const remove = async (req, res) => {
     try {
         const { id } = req.params;
-        const tutores = await tutoresService.findById(id);
+        const tutores = await tutorService.buscarPorId(id);
         if (!tutores) {
             return res.status(404).json({ erro: 'tutores não encontrado' });
         }
-        await tutoresService.remove(id);
+        await tutorService.remove(id);
         res.status(204).send();
     } catch (error) {
         console.error(error);
@@ -76,7 +76,7 @@ const remove = async (req, res) => {
 const getPedidosBytutores = async (req, res) => {
     try {
         const { id } = req.params;
-        const tutores = await tutoresService.findById(id);
+        const tutores = await tutorService.buscarPorId(id);
         if (!tutores) {
             return res.status(404).json({ erro: 'tutores não encontrado' });
         }
